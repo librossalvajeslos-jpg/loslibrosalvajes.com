@@ -31,7 +31,20 @@ if (pagina === "pedidos") {
     <li>Teléfono / WhatsApp: <a href="https://wa.me/${SITE.telefono}?text=${encodeURIComponent("Hola, quería hacer un pedido")}">${SITE.telefonoVisible}</a></li>
     <li>Correo: <a href="mailto:${SITE.email}">${SITE.email}</a></li>
     <li>Instagram: <a href="https://instagram.com/${SITE.instagram}">@${SITE.instagram}</a></li>`;
-  if (SITE.formulario) $("#formulario").action = SITE.formulario; else $("#formulario").hidden = true;
+  const f = $("#formulario");
+  if (!SITE.formulario) f.hidden = true;
+  else {
+    f.insertAdjacentHTML("afterend", '<p id="estado" class="meta" role="status"></p>');
+    f.onsubmit = async (e) => {
+      e.preventDefault();
+      $("#estado").textContent = "Enviando…";
+      try {
+        const r = await fetch(SITE.formulario, { method: "POST", body: new FormData(f), headers: { Accept: "application/json" } });
+        if (!r.ok) throw 0;
+        f.reset(); $("#estado").textContent = "¡Gracias! Hemos recibido tu pedido y te responderemos pronto.";
+      } catch { $("#estado").textContent = "No se ha podido enviar. Escríbenos por correo o WhatsApp."; }
+    };
+  }
 }
 
 if (pagina === "videos") {
