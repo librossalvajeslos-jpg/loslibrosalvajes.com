@@ -2,7 +2,7 @@ backend:
   name: github
   repo: librossalvajeslos-jpg/loslibrosalvajes.com         # <- cámbialo
   branch: main
-  base_url: https://loslibrosalvajes-com.librossalvajeslos.workers.dev/     # <- la URL de tu web en Cloudflare
+  base_url: https://loslibrosalvajes-com.librossalvajeslos.workers.dev    # <- la URL de tu web en Cloudflare
   auth_endpoint: api/auth
 media_folder: images/uploads
 public_folder: /images/uploads
