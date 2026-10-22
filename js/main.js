@@ -13,6 +13,16 @@ const $ = (s) => document.querySelector(s);
 const pagina = document.body.dataset.pagina;
 const fecha = (d) => new Date(d).toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"});
 
+function aviso(texto, ok = true) {
+  const d = document.createElement("dialog");
+  d.className = ok ? "aviso" : "aviso error";
+  d.innerHTML = `<p>${texto}</p><button class="boton">Cerrar</button>`;
+  d.querySelector("button").onclick = () => d.close();
+  d.onclose = () => d.remove();
+  document.body.appendChild(d);
+  d.showModal();
+}
+
 function yt(url){
   const m = (url||"").match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
   return m ? `<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${m[1]}" loading="lazy" allowfullscreen title="Vídeo"></iframe></div>` : "";
@@ -33,16 +43,20 @@ if (pagina === "pedidos") {
     <li>Instagram: <a href="https://instagram.com/${SITE.instagram}">@${SITE.instagram}</a></li>`;
   const f = $("#formulario");
   if (!SITE.formulario) f.hidden = true;
-  else {
-    f.insertAdjacentHTML("afterend", '<p id="estado" class="meta" role="status"></p>');
+else {
     f.onsubmit = async (e) => {
       e.preventDefault();
-      $("#estado").textContent = "Enviando…";
+      const boton = f.querySelector("button");
+      boton.disabled = true; boton.textContent = "Enviando…";
       try {
         const r = await fetch(SITE.formulario, { method: "POST", body: new FormData(f), headers: { Accept: "application/json" } });
         if (!r.ok) throw 0;
-        f.reset(); $("#estado").textContent = "¡Gracias! Hemos recibido tu pedido y te responderemos pronto.";
-      } catch { $("#estado").textContent = "No se ha podido enviar. Escríbenos por correo o WhatsApp."; }
+        f.reset();
+        aviso("✓ ¡Gracias! Hemos recibido tu pedido y te responderemos pronto.");
+      } catch {
+        aviso("No se ha podido enviar. Escríbenos por correo o WhatsApp.", false);
+      }
+      boton.disabled = false; boton.textContent = "Enviar pedido";
     };
   }
 }

@@ -160,6 +160,10 @@ footer{border-top:1px solid var(--linea);padding:2rem 0;color:var(--suave);font-
   margin: 0 ;
 }
 
+.aviso{border:0;border-top:4px solid var(--acento);border-radius:var(--radio);padding:1.5rem 2rem;max-width:380px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.aviso.error{border-top-color:#B3261E}
+.aviso::backdrop{background:rgba(0,0,0,.45)}
+
 @media (max-width: 760px) {
   #recomendaciones .rejilla {
     grid-template-columns: repeat(2, minmax(0, 1fr));
