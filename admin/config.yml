@@ -1,0 +1,38 @@
+backend:
+  name: github
+  repo: TU_USUARIO/TU_REPOSITORIO          # <- cámbialo
+  branch: main
+  base_url: https://TU-WEB.pages.dev       # <- la URL de tu web en Cloudflare
+  auth_endpoint: api/auth
+media_folder: images/uploads
+public_folder: /images/uploads
+locale: es
+collections:
+  - name: blog
+    label: Blog
+    label_singular: entrada
+    folder: content/blog
+    create: true
+    extension: md
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {name: title, label: Título}
+      - {name: date, label: Fecha, widget: datetime}
+      - {name: tags, label: Etiquetas, widget: list, default: []}
+      - {name: cover, label: Foto de portada, widget: image, required: false}
+      - {name: video, label: Enlace de vídeo de YouTube, widget: string, required: false}
+      - {name: body, label: Texto (admite fotos, enlaces y negritas), widget: markdown}
+  - name: ajustes
+    label: Vídeos de la web
+    files:
+      - name: videos
+        label: Vídeos
+        file: data/videos.json
+        fields:
+          - name: videos
+            label: Vídeos
+            widget: list
+            fields:
+              - {name: categoria, label: Tipo, widget: select, options: [{label: "Presentaciones con autores (+30 min)", value: presentaciones}, {label: "Vídeos (5-10 min)", value: medios}, {label: "Vídeos cortos", value: cortos}]}
+              - {name: titulo, label: Título}
+              - {name: url, label: Enlace de YouTube}
