@@ -1,12 +1,12 @@
 /* ===== DATOS DE LA LIBRERÍA: edita solo esta parte ===== */
 const SITE = {
   nombre: "Los Libros Salvajes",
-  email: "hola@milibreria.es",
+  email: "loslibrossalvajes@gmail.com",
   instagram: "loslibrossalvajes",            // sin @
   telefono: "34680574724",            // con prefijo de país, sin + ni espacios
   telefonoVisible: "680 574 724",
   videoInicio: "https://youtu.be/Cs710jQ1fn0?si=8MbJNijWxDYffFj4",                    // enlace de YouTube para la portada (opcional)
-  formulario: ""                      // URL de Formspree (opcional, ver instrucciones)
+  formulario: "https://formspree.io/f/xeaajnzd"                      // URL de Formspree (opcional, ver instrucciones)
 };
 const PAGINAS = [["index.html","Inicio"],["nosotros.html","Nosotros"],["blog.html","Blog"],["videos.html","Vídeos"],["pedidos.html","Pedidos"]];
 const $ = (s) => document.querySelector(s);
